@@ -1,0 +1,15 @@
+{
+    "name": "phpxin/phprpc",
+    "type": "library",
+    "description": "PHPRPC For PHP",
+    "keywords": ["phprpc"],
+    "homepage": "http://phprpc.org/",
+    "require": {},
+    "autoload": {
+        "classmap": [
+            "src/phprpc_date.php",
+            "src/phprpc_client.php",
+            "src/phprpc_server.php"
+        ]
+    }
+}
