@@ -8,10 +8,8 @@
  *
  * 依赖 mcrypt openssl base64
  */
-namespace safeport ;
-use \safeport\SafePortException ;
-
-include rtrim(dirname(__FILE__), ',') . '/SafePortException.php' ;
+namespace Phpxin\Safeport ;
+use \Phpxin\Safeport\SafePortException ;
 
 class Client{
 

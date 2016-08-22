@@ -1,15 +1,13 @@
 {
-    "name": "phpxin/phprpc",
+    "name": "phpxin/safeport",
     "type": "library",
-    "description": "PHPRPC For PHP",
-    "keywords": ["phprpc"],
-    "homepage": "http://phprpc.org/",
+    "description": "PHP Api encrypt protocol",
+    "keywords": ["safeport"],
+    "homepage": "https://github.com/phpxin/safeport",
     "require": {},
     "autoload": {
-        "classmap": [
-            "src/phprpc_date.php",
-            "src/phprpc_client.php",
-            "src/phprpc_server.php"
-        ]
+        "psr-4": {
+            "Phpxin\\Safeport\\": "src"
+        }
     }
 }

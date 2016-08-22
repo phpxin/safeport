@@ -2,13 +2,17 @@
 
 $mem = memory_get_usage(true);
 
-include '../lib/Server.php' ;
+include '../src/SafePortException.php' ;
+include '../src/Server.php' ;
+include '../src/Client.php' ;
+
+use \Phpxin\Safeport\Server ;
 
 $mKey = $_POST['key'];
 $mData = $_POST['data'];
 $miv = $_POST['iv'];
 
-$cli = new \safeport\Server(MCRYPT_RIJNDAEL_256, 'E:\\testks\\pri_key.pem', $mKey, $miv, $mData) ;
+$cli = new Server(MCRYPT_RIJNDAEL_256, 'E:\\testks\\pri_key.pem', $mKey, $miv, $mData) ;
 $cli->execute() ;
 
 //
@@ -17,6 +21,7 @@ $cli->execute() ;
 //    'key' => $cli->getKey()
 //] ;
 
+/*
 $pdo = new PDO('mysql:host=127.0.0.1;dbname=businesstravel', 'root', 'lixinxin') ;
 $pdo->query('set names utf8') ;
 $q = $pdo->query('select * from user_city');
@@ -28,8 +33,11 @@ $data = [
     'code' => 0 ,
     'data' => $rows
 ] ;
-
-
+*/
+$data = [
+    'code' => 0 ,
+    'data' => '1111'
+] ;
 $ret = $cli->encryptData(json_encode($data)) ;
 
 

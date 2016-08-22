@@ -1,10 +1,17 @@
 <?php
 $mem = memory_get_usage(true);
-include '../lib/Client.php' ;
+
+include '../src/SafePortException.php' ;
+include '../src/Server.php' ;
+include '../src/Client.php' ;
+
+use \Phpxin\Safeport\Client ;
 
 $data = 'hello world' ;
 
-$cli = new \safeport\Client(MCRYPT_RIJNDAEL_256, 'E:\\testks\\pub_key.pem', $data) ;
+
+
+$cli = new Client(MCRYPT_RIJNDAEL_256, 'E:\\testks\\pub_key.pem', $data) ;
 $cli->execute() ;
 
 
@@ -16,7 +23,7 @@ $m = [
 
 //var_dump($m) ;
 
-$req = curl_init('http://192.168.2.143/git/safeport/test/testserv.php') ;
+$req = curl_init('http://localhost/git/safeport/test/testserv.php') ;
 curl_setopt($req, CURLOPT_POST, 1) ;
 curl_setopt($req, CURLOPT_RETURNTRANSFER, 1) ;
 curl_setopt($req, CURLOPT_POST, 1);
