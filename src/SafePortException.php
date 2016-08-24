@@ -12,5 +12,6 @@ use Exception ;
 class SafePortException extends Exception{
     
     const ENCODE_FAILED = 10000 ;
+    const ALG_DISABLE = 10002 ; //不支持的算法
     
 }

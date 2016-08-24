@@ -17,6 +17,7 @@ class Server{
     private $mcryptIv = '' ;  //特征向量
     private $mKey ;
     private $mData ;
+    private $padding ;
 
     private $mcryptObj = null ;
     private $mcryptType ;       //对称加密类型    例： MCRYPT_RIJNDAEL_256
@@ -24,18 +25,21 @@ class Server{
     private $mode = MCRYPT_MODE_NOFB ;
     private $modeDirectory = '' ;
 
+
+
     //解密后的数据
     private $key ;
     private $data ;
     private $iv ;
 
-    public function __construct($mcryptType, $primaryKeyPath, $mKey, $miv, $mData)
+    public function __construct($mcryptType, $primaryKeyPath, $mKey, $miv, $mData, $padding = false)
     {
         $this->mcryptType = $mcryptType ;
         $this->primaryKeyPath = $primaryKeyPath ;
         $this->mKey = $mKey ;
         $this->mData = $mData ;
         $this->mcryptIv = $miv ;
+        $this->padding = $padding ;
     }
 
     public function __destruct()
@@ -90,8 +94,13 @@ class Server{
 
         $decrypted = mdecrypt_generic($this->mcryptObj, $encrypted);
 
-        $this->data = $decrypted ;
-        return $decrypted ;
+        if ($this->padding){
+            $this->data = Tools::pkcs5_unpad($decrypted) ;
+        }else{
+            $this->data = $decrypted ;
+        }
+        
+        return $this->data ;
     }
 
     public function getData(){
@@ -121,6 +130,13 @@ class Server{
      * @return string 加密后的数据
      */
     public function encryptData($data){
+
+        $blockSize = mcrypt_enc_get_block_size($this->mcryptObj);
+
+        if ($this->padding){
+            $data = Tools::pkcs5_pad($data, $blockSize) ;
+        }
+
         $encrypted = mcrypt_generic($this->mcryptObj, $data);
         $encrypted = base64_encode($encrypted) ;
         return $encrypted ;

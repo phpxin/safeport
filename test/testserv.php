@@ -5,6 +5,7 @@ $mem = memory_get_usage(true);
 include '../src/SafePortException.php' ;
 include '../src/Server.php' ;
 include '../src/Client.php' ;
+include '../src/Tools.php' ;
 
 use \Phpxin\Safeport\Server ;
 
@@ -12,7 +13,7 @@ $mKey = $_POST['key'];
 $mData = $_POST['data'];
 $miv = $_POST['iv'];
 
-$cli = new Server(MCRYPT_RIJNDAEL_256, 'E:\\testks\\pri_key.pem', $mKey, $miv, $mData) ;
+$cli = new Server(MCRYPT_RIJNDAEL_128, 'E:\\testks\\pri_key.pem', $mKey, $miv, $mData, true) ;
 $cli->execute() ;
 
 //
@@ -36,7 +37,7 @@ $data = [
 */
 $data = [
     'code' => 0 ,
-    'data' => '1111'
+    'data' => 'success!'
 ] ;
 $ret = $cli->encryptData(json_encode($data)) ;
 
